@@ -13,6 +13,11 @@ export interface IButtonProps {
 export interface IHomeProps {
     
 }
+export interface IImageProps {
+    link: string,
+    img: string,
+    altText: string,
+}
 
 export interface IInstructionProps {
 
@@ -94,11 +99,6 @@ export interface IToggleProps {
     layerName?: string
 }
 
-export interface ITransactionsCredentials<T> {
-    username: T,
-    password: T,
-    connectionString: T,
-}
 export interface ITransactionsGeoserver<T, U> {
     featureNS: T,
     featurePrefix: T,

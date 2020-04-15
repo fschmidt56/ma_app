@@ -10,7 +10,7 @@ import { Feature, MapBrowserEvent } from 'ol';
 import { FeatureLike } from 'ol/Feature';
 import { activeToggleColor } from '../utils/MapStyles';
 import Button from './Button';
-import { geoserverWfsUrl, wfsTransaction, geoserverHeaders, trackFeature, usedIcons, insertParameters, updateParameters } from '../utils/MapConfig';
+import { geoserverWfsUrl, wfsTransaction, locationFeature, usedIcons, insertParameters, updateParameters, geoserverFetchUrl } from '../utils/MapConfig';
 import VectorLayer from 'ol/layer/Vector';
 import { MapUtils } from '../utils/MapUtils';
 import LineString from 'ol/geom/LineString';
@@ -19,6 +19,8 @@ import { Utils } from '../utils/Utils';
 import MultiLineString from 'ol/geom/MultiLineString';
 import Instructions from './Instructions';
 import Home from './Home';
+import Image from './Image';
+import logo from '../img/rub_logo.png'
 
 const mapListeners = [];
 
@@ -74,11 +76,12 @@ const MapSidebar = (props: IMapSidebarProps): JSX.Element => {
                 let xmlString = new XMLSerializer().serializeToString(
                     wfsTransaction.writeTransaction([], [selectedFeature], [], updateParameters)
                 )
-                fetch(geoserverWfsUrl, {
+                let body = {
+                    xml: xmlString,
+                }
+                fetch(geoserverFetchUrl, {
                     method: 'POST',
-                    mode: 'no-cors',
-                    headers: geoserverHeaders,
-                    body: xmlString
+                    body: JSON.stringify(body)
                 })
                     .then(response => setTransactionResponse(`Updated Location with id ${selectedFeature.getId()} successfully.`))
                     .then(() => setTimeout(() => setTransactionResponse(''), 3000))
@@ -103,39 +106,38 @@ const MapSidebar = (props: IMapSidebarProps): JSX.Element => {
         }
     }
 
-    const saveTrack = () => {
-        let linestring = trackFeature.getGeometry() as LineString;
-        if (linestring) {
-            const insertFeature = new Feature({
-                geom: new MultiLineString([linestring])
-            });
-            insertFeature.set('user', 'fabi')
-            let xmlString = new XMLSerializer().serializeToString(
-                wfsTransaction.writeTransaction([insertFeature], [], [], insertParameters)
-            )
-            MapUtils.removeLastLayer(map)
-            fetch(geoserverWfsUrl, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: geoserverHeaders,
-                body: xmlString
-            })
-                .then(response => setTrackResponse(`Track inserted to database with timestamp ${Utils.getDate()}.`))
-                .then(() => {
-                    //@ts-ignore
-                    const layer: VectorLayer = map!.getLayers().getArray()[2];
-                    layer.getSource().clear();
-                    layer.getSource().refresh();
-                })
-                .then(() => setTimeout(() => setTrackResponse(''), 3000))
-                .catch(error => console.log(error + 'Error while saving data.'));
-        }
-        else {
-            setTrackResponse('No Track to save.');
-            setTimeout(() => setTrackResponse(''), 3000);
-            return;
-        }
-    }
+    // const saveTrack = () => {
+    //     let linestring = locationFeature.getGeometry() as LineString;
+    //     if (linestring) {
+    //         const insertFeature = new Feature({
+    //             geom: new MultiLineString([linestring])
+    //         });
+    //         insertFeature.set('user', 'fabi')
+    //         let xmlString = new XMLSerializer().serializeToString(
+    //             wfsTransaction.writeTransaction([insertFeature], [], [], insertParameters)
+    //         )
+    //         MapUtils.removeLastLayer(map)
+    //         fetch(geoserverWfsUrl, {
+    //             method: 'POST',
+    //             mode: 'no-cors',
+    //             body: xmlString
+    //         })
+    //             .then(response => setTrackResponse(`Track inserted to database with timestamp ${Utils.getDate()}.`))
+    //             .then(() => {
+    //                 //@ts-ignore
+    //                 const layer: VectorLayer = map!.getLayers().getArray()[2];
+    //                 layer.getSource().clear();
+    //                 layer.getSource().refresh();
+    //             })
+    //             .then(() => setTimeout(() => setTrackResponse(''), 3000))
+    //             .catch(error => console.log(error + 'Error while saving data.'));
+    //     }
+    //     else {
+    //         setTrackResponse('No Track to save.');
+    //         setTimeout(() => setTrackResponse(''), 3000);
+    //         return;
+    //     }
+    // }
 
     let prevSelected: Feature[] = []
     if (map) {
@@ -179,6 +181,11 @@ const MapSidebar = (props: IMapSidebarProps): JSX.Element => {
                                 faIcon={usedIcons[1]}
                                 clickButton={() => setSelected('instructions')}
                             />
+                            <Image 
+                            altText='RUB-Logo'
+                            img={logo}
+                            link='https://www.geographie.ruhr-uni-bochum.de/forschung/geomatik/home-news/'
+                            />
                         </>
                     }
                     />
@@ -214,7 +221,7 @@ const MapSidebar = (props: IMapSidebarProps): JSX.Element => {
                     id='instructions'
                     header='Informationen'
                     faIcon={usedIcons[1]}
-                    anchor='bottom'
+                    anchor='top'
                 >
                     <TabContent content={
                         <>
@@ -231,14 +238,14 @@ const MapSidebar = (props: IMapSidebarProps): JSX.Element => {
                     <TabContent content={
                         <>
                             <Button
-                                buttonText='Start tracking'
+                                buttonText='Standort lokalisieren'
                                 clickButton={() => MapUtils.createGeolocation(map)}
                             />
-                            <Button
+                            {/* <Button
                                 buttonText='Quit tracking'
                                 clickButton={saveTrack}
                                 response={trackResponse}
-                            />
+                            /> */}
                         </>
                     } />
                 </Tab>

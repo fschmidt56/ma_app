@@ -1,8 +1,8 @@
-import { ITransactionsGeoserver, ITransactionsCredentials } from "../types/types";
+import { ITransactionsGeoserver } from "../types/types";
 import WFS from 'ol/format/WFS';
 import View from "ol/View";
 import Feature from "ol/Feature";
-import LineString from "ol/geom/LineString";
+import Point from "ol/geom/Point";
 
 const baseLayerArr: string[] = [
     'https://{1-4}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
@@ -49,32 +49,24 @@ export const insertParameters: ITransactionsGeoserver<string, object[]> = {
     srsName: 'EPSG:3857',
 };
 
-export const credentials: ITransactionsCredentials<string> = {
-    username: 'admin',
-    password: 'geoserver',
-    connectionString: 'admin:geoserver'
-};
-
-export const geoserverHeaders: Headers = new Headers({
-    'Content-Type': 'text/plain',
-    'Authorization': 'Basic ' + btoa(credentials.connectionString)
-});
-
-export const trackFeature: Feature = new Feature({
-    geom: new LineString([]),
+export const locationFeature: Feature = new Feature({
+    geom: new Point([]),
 })
 
 export const usedIcons: string[] = [
     'fa fa-home',
     'fa fa-info',
     'fa fa-mouse-pointer',
-    'fa fa-map',
+    'fa fa-map-marker',
     'fa fa-twitter',
     'fa fa-cogs',
     'fa fa-result',
     'fa fa-chevron-down',
     'fa fa-chevron-up',
     'fa fa-lock',
-]
+];
+
+export const geoserverFetchUrl = 'http://192.168.2.185:8000/handleGeoserver';
+export const license = 'https://creativecommons.org/licenses/by-nc-nd/4.0/deed.de';
 
 

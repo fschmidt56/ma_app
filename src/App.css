@@ -1,11 +1,11 @@
 :root {
-  --sidebarBgColor: rgba(255, 255, 255, 0.4);
-  --buttonColor: rgba(37,127,179,1);
-  --tabBgColor: rgba(255,255,255,0.85);
-  --tabColor: rgba(55,156,214,1);
-  --disabledTabColor: rgba(23, 23, 23, 0.5);
-  --tabContentColor: rgb(119, 165, 192);
-  --tabContentBgColor: rgba(255, 255, 255, 0.8);
+  --sidebarBgColor: rgba(241, 241, 241, 0.4);
+  --buttonColor: rgba(0,53,96,1);
+  --tabBgColor: rgba(241,241,241,0.75);
+  --tabColor: rgba(0,53,96,1);
+  --disabledTabColor: rgba(141,174, 16, 1);
+  --tabContentColor: rgb(0,53,96,1);
+  --tabContentBgColor: rgba(241,241,241, 0.8);
   --toggleInactive: rgba(125,125,125,1);
   --borderColor: transparent;
   --border: 3px solid var(--borderColor);
@@ -27,6 +27,12 @@ a {
   color: var(--disabledTabColor);
   text-decoration: none;
   font-weight: bold;
+}
+
+img {
+  padding-top: 5px;
+  height: auto;
+  width: 100%;
 }
 
 .button {
@@ -78,6 +84,7 @@ margin:0.4em auto;
   padding-bottom: 2px;
   vertical-align: middle;
 }
+
 
 .legendtext {
   vertical-align: top;

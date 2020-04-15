@@ -7,9 +7,9 @@ import { bbox as bboxStrategy } from 'ol/loadingstrategy';
 import VectorLayer from 'ol/layer/Vector';
 import Select from 'ol/interaction/Select';
 import XYZSource from 'ol/source/XYZ';
-import { baseLayerUrl, geoserverWfsUrl, view, trackFeature } from './MapConfig';
-import { selectedStyle, defaultStyle, activeStyle } from './MapStyles';
-import LineString from 'ol/geom/LineString';
+import { baseLayerUrl, geoserverWfsUrl, view, locationFeature } from './MapConfig';
+import { selectedStyle, defaultStyle } from './MapStyles';
+import Point from 'ol/geom/Point';
 
 export class MapUtils {
     static createBaseLayer() {
@@ -71,29 +71,32 @@ export class MapUtils {
             tracking: true,
             projection: 'EPSG:3857',
         });
-        trackFeature.setGeometryName('geom');
+        locationFeature.setGeometryName('geom');
         geolocation.on('change', function () {
-            console.log('Change detected, push coordiantes to LineStringArray.')
             let coordinate: number[] = geolocation.getPosition();
-            let track: LineString = trackFeature.getGeometry() as LineString
-            track.appendCoordinate(coordinate)
-            view.setCenter(track.getFirstCoordinate());
+            let track: Point = locationFeature.getGeometry() as Point;
+            track.setCoordinates(coordinate);
+            let center =  track.getLastCoordinate();
+            view.animate({
+                zoom: 18,
+                duration: 3000,
+                center: center,
+            })
+            geolocation.setTracking(false)
         });
         let trackLayer = new VectorLayer({
             source: new VectorSource({
-                features: [trackFeature]
+                features: [locationFeature]
             }),
-            style: activeStyle
         });
-        map!.addLayer(trackLayer)
+        map!.addLayer(trackLayer);
         alert('Tracking started. If your position changes, map will zoom to your current location.')
         return geolocation;
     }
 
     static removeLastLayer(map: Map | null) {
         const layers = map!.getLayers().getArray();
-        const layer = layers[layers.length-1] as VectorLayer;
+        const layer = layers[layers.length - 1] as VectorLayer;
         layer.getSource().clear();
     }
-
 }
