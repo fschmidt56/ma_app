@@ -14,6 +14,7 @@ const Image = (props: IImageProps) => {
             <div className='image'>
                 <a
                     href={link}
+                    target='_blank'
                 >
                     <img
                         src={img}

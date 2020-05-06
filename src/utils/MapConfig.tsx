@@ -13,9 +13,9 @@ const baseLayerArr: string[] = [
     'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'
 ];
 
-export const baseLayerUrl: string = baseLayerArr[0];
-export const mapCenter: number[] = [782428.5308,6615070.6296];
-export const mapZoom: number = 16;
+export const baseLayerUrl: string = baseLayerArr[2];
+export const mapCenter: number[] = [774577.0148,6610935.8641];
+export const mapZoom: number = 13;
 export const maxZoom: number = 19;
 export const minZoom: number = 12;
 export const rotationStatus: boolean = false;

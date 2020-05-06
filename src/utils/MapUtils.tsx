@@ -86,11 +86,11 @@ export class MapUtils {
         });
         let trackLayer = new VectorLayer({
             source: new VectorSource({
-                features: [locationFeature]
+                features: [locationFeature],
             }),
         });
         map!.addLayer(trackLayer);
-        alert('Tracking started. If your position changes, map will zoom to your current location.')
+        alert('User successfully located. Map will zoom to current location. Your position will not be tracked.')
         return geolocation;
     }
 

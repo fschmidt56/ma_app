@@ -3,7 +3,6 @@ import Stroke from "ol/style/Stroke";
 import Fill from "ol/style/Fill";
 import { FeatureLike } from "ol/Feature";
 
-
 export const activeToggleColor: string = 'rgba(141,174,16,1)';
 export const strokeOpacity: number = 0.75;
 export const fillOpacity: number = 0.25;
@@ -49,6 +48,3 @@ export function defaultStyle(feature: FeatureLike): Style {
     });
     return style;
 }
-
-
- 

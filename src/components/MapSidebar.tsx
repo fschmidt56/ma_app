@@ -20,7 +20,8 @@ import MultiLineString from 'ol/geom/MultiLineString';
 import Instructions from './Instructions';
 import Home from './Home';
 import Image from './Image';
-import logo from '../img/rub_logo.png'
+import logo from '../img/rub_logo.png';
+import Loading from './Loading';
 
 const mapListeners = [];
 
@@ -67,6 +68,7 @@ const MapSidebar = (props: IMapSidebarProps): JSX.Element => {
 
     const saveData = () => {
         if (selectedFeature) {
+            setTransactionResponse('Updating')
             if (selectedFeature.getId()) {
                 selectedFeature.unset('selected')
                 selectedFeature.getId();
@@ -83,7 +85,7 @@ const MapSidebar = (props: IMapSidebarProps): JSX.Element => {
                     method: 'POST',
                     body: JSON.stringify(body)
                 })
-                    .then(response => setTransactionResponse(`Updated Location with id ${selectedFeature.getId()} successfully.`))
+                    .then(() => setTransactionResponse(`Updated Location with id ${selectedFeature.getId()} successfully.`))
                     .then(() => setTimeout(() => setTransactionResponse(''), 3000))
                     .then(() => {
                         //@ts-ignore
@@ -181,10 +183,10 @@ const MapSidebar = (props: IMapSidebarProps): JSX.Element => {
                                 faIcon={usedIcons[1]}
                                 clickButton={() => setSelected('instructions')}
                             />
-                            <Image 
-                            altText='RUB-Logo'
-                            img={logo}
-                            link='https://www.geographie.ruhr-uni-bochum.de/forschung/geomatik/home-news/'
+                            <Image
+                                altText='RUB-Logo'
+                                img={logo}
+                                link='https://www.geographie.ruhr-uni-bochum.de/forschung/geomatik/home-news/'
                             />
                         </>
                     }
@@ -209,11 +211,16 @@ const MapSidebar = (props: IMapSidebarProps): JSX.Element => {
                             {
                                 JSON.stringify(selectedFeature.get('visited'))
                             }
-                            <Button
-                                buttonText='Update'
-                                response={transactionResponse}
-                                clickButton={saveData}
-                            />
+                            {
+                                transactionResponse !== 'Updating' ?
+                                    <Button
+                                        buttonText='Update'
+                                        response={transactionResponse}
+                                        clickButton={saveData}
+                                    />
+                                    :
+                                    <Loading />
+                            }
                         </>
                     } />
                 </Tab>
@@ -232,7 +239,7 @@ const MapSidebar = (props: IMapSidebarProps): JSX.Element => {
                 </Tab>
                 <Tab
                     id='tracking'
-                    header='Tracking'
+                    header='Standort lokalisieren'
                     faIcon={usedIcons[3]}
                 >
                     <TabContent content={

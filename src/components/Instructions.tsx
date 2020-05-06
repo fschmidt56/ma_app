@@ -32,9 +32,9 @@ const Instructions = (props: IInstructionProps) => {
                 <div className={open[1] ? 'notCollapsedInst' : 'collapsedInst'}>
                     <li>Bei der Datenerhebung werden keine nutzerspezifischen Daten erfasst. Jedem User wird ein vom Server zufällig generiertes Pseudonym in Form eines 128-stelligen Tokens zugeordnet. Eine Registrierung ist nicht erforderlich.</li>
                     <li>Bei einem Update eines Gebäudes sendest du nur den gewählten Status von diesem. Gleichzeitig wird der Zeitpunkt der letzten Aktualisierung in der Datenbank gespeichert sowie das Pseudonym des Nutzers.</li>
-                    <li>Du kannst die Ergebnisse der Datenerhebung live <a href='http://192.168.2.185:4000'>HIER</a> mitverfolgen.</li>
-                    <li>Wenn du dich mit Geodaten auskennst, kannst du über diese <a href='http://192.168.2.185:8000'>API</a> aktuelle Daten der Erhebung im GeoJSON-Format abrufen. Dabei gelten die Lizenzbestimmungen nach <a href={license}>CC BY-NC-ND 4.0</a></li>
-                    <li>Die dargestellten Hausumringe basieren auf einem Datensatz der <a href='https://www.bezreg-koeln.nrw.de/brk_internet/geobasis/liegenschaftskataster/hausumringe/index.html'> Bezirksregierung Köln.</a></li>
+                    <li>Du kannst die Ergebnisse der Datenerhebung live <a target='_blank' href='http://192.168.2.185:4000'>HIER</a> mitverfolgen.</li>
+                    <li>Wenn du dich mit Geodaten auskennst, kannst du über diese <a target='_blank' href='http://192.168.2.185:8000'>Rest-API</a> aktuelle Daten der Erhebung im GeoJSON-Format abrufen. Dabei gelten die Lizenzbestimmungen nach <a href={license}>CC BY-NC-ND 4.0</a></li>
+                    <li>Die dargestellten Hausumringe basieren auf einem Datensatz der <a target='_blank' href='https://www.bezreg-koeln.nrw.de/brk_internet/geobasis/liegenschaftskataster/hausumringe/index.html'> Bezirksregierung Köln</a>.</li>
                 </div>
                 <hr></hr>
                 <Image

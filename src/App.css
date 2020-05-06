@@ -7,7 +7,7 @@
   --tabContentColor: rgb(0,53,96,1);
   --tabContentBgColor: rgba(241,241,241, 0.8);
   --toggleInactive: rgba(125,125,125,1);
-  --borderColor: transparent;
+  --borderColor: rgba(141,174,16,0.5);
   --border: 3px solid var(--borderColor);
   --hoverTabColor: var(--tabBgColor); 
   --activeTabColor: var(--tabBgColor); 
@@ -69,22 +69,20 @@ margin:0.4em auto;
 }
 
 .collapsedInst {
-  position:absolute;
-  opacity: 0;
-  height: auto;
+  height: 0;
+  display: none;
 }
 
 .notCollapsedInst {
-  position: static;
-  opacity: 1;
-  transition: opacity 0.1s ease-in-out;
+  height: auto;
+  display: block;
 }
+
 .layerlabel {
   padding-left: 35px;
   padding-bottom: 2px;
   vertical-align: middle;
 }
-
 
 .legendtext {
   vertical-align: top;
@@ -120,6 +118,36 @@ margin:0.4em auto;
   transition: 0.5s;
   background: var(--tabBgColor);
   box-shadow: 0 0 2px 0 var(--sidebarBgColor);
+}
+
+.loading span {
+  width: 15px;
+  height: 15px;
+  margin: 15% 4px;
+  background-color: var(--disabledTabColor);
+  border-radius: 50%;
+  display: inline-block;
+  animation-name: loadingDots;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+.loading span:nth-child(2) {
+  animation-delay: 0.5s
+}
+
+.loading span:nth-child(3) {
+  animation-delay: 1s
+}
+
+
+@keyframes loadingDots {
+  20%{
+    transform: translateY(0px);
+  }
+  50%{
+    transform: translateY(-20px);
+  }
 }
 
 .react-switch-checkbox:checked + .react-switch-label .react-switch-button {

@@ -26,6 +26,10 @@ export interface IInstructionProps {
 export interface ILegendProps {
     title: string,
 }
+
+export interface ILoadingProps {
+    
+}
 export interface IMapProps {
 }
 
