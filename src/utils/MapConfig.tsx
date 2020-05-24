@@ -29,7 +29,6 @@ export const view = new View({
 export const geoserverWfsUrl: string = 'http://192.168.2.185:8080/geoserver/pg/wfs?service=WFS&version=1.1.0';
 export const typeName: string[] = [
     'pg:hu_koeln',
-    'pg:tracks'
 ];
 export const wfsTransaction: WFS = new WFS();
 
