@@ -34,10 +34,15 @@ const MapSidebar = (props: IMapSidebarProps): JSX.Element => {
     const [token, setToken] = useState(localStorage.getItem('VgiUserToken'));
 
     function hashUser() {
-        fetch('http://192.168.2.185:8000/hash')
+        fetch('http://corona.geomatik.ruhr-uni-bochum.de/api/hash')
             .then(response => response.json())
             .then(value => localStorage.setItem('VgiUserToken', value))
     }
+
+    function handleToken(newToken: string | null) {
+        setToken(newToken);
+      }
+  
 
     useEffect(() => {
         if (localStorage.getItem('VgiUserToken') === null) {
@@ -81,7 +86,7 @@ const MapSidebar = (props: IMapSidebarProps): JSX.Element => {
                     method: 'POST',
                     body: JSON.stringify(body)
                 })
-                    .then(() => setTransactionResponse(`Gebäude mit id ${selectedFeature.getId()} erfolgreich editiert.`))
+                    .then(() => setTransactionResponse(`Gebäude mit id ${selectedFeature.getId()} wurde erfasst. Danke für deinen Beitrag.`))
                     .then(() => setTimeout(() => setTransactionResponse(''), 3000))
                     .then(() => {
                         //@ts-ignore
@@ -195,7 +200,10 @@ const MapSidebar = (props: IMapSidebarProps): JSX.Element => {
                 >
                     <TabContent content={
                         <>
-                            <Instructions />
+                            <Instructions 
+                                token={token}
+                                handleToken={handleToken}
+                            />
                         </>
                     }
                     />
@@ -210,7 +218,8 @@ const MapSidebar = (props: IMapSidebarProps): JSX.Element => {
                             <Button
                                 buttonText='Standort lokalisieren'
                                 clickButton={() => MapUtils.createGeolocation(map)}
-                            />                            
+                            />  
+                            <p>Die Standortbestimmung dient nur zu deiner Orientierung. Dein Standort wird im Rahmen der Datenerfassung nicht gespeichert.</p>                          
                         </>
                     } />
                 </Tab>

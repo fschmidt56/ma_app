@@ -40,7 +40,7 @@ export class MapUtils {
             url: function (extent: number[]) {
                 return `${geoserverWfsUrl}
                 &request=GetFeature&typename=${typename}
-                &outputFormat=application/json
+                &outputFormat=application/json&propertyName=(geom,visited)&
                 &srsname=EPSG:3857&bbox=${extent.join(',')},EPSG:3857`;
             },
             strategy: bboxStrategy,

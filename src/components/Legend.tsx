@@ -17,7 +17,7 @@ const Legend = (props: ILegendProps) => {
                 strokeColor={selectedColor[1]}
                 strokeOpacity='1'
                 strokeWidth='5'
-                label=' besuchte Gebäude'
+                label=' selektierter Hausumring'
             />
             <SvgRect
                 height='25'
@@ -27,7 +27,7 @@ const Legend = (props: ILegendProps) => {
                 strokeColor={defaultColor[1]}
                 strokeOpacity='1'
                 strokeWidth='5'
-                label=' nicht besuchte Gebäude'
+                label=' Hausumring'
             />
             <hr></hr>
         </>

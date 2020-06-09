@@ -20,7 +20,8 @@ export interface IImageProps {
 }
 
 export interface IInstructionProps {
-
+    token: string | null,
+    handleToken?: (newToken: string | null) => void
 }
 
 export interface ILegendProps {

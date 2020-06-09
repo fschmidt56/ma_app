@@ -26,7 +26,8 @@ export const view = new View({
     minZoom: minZoom,
     enableRotation: rotationStatus,
 })
-export const geoserverWfsUrl: string = 'http://192.168.2.185:8080/geoserver/pg/wfs?service=WFS&version=1.1.0';
+export const serverName: string[] = ['http://192.168.2.185:8080/', 'http://corona.geomatik.ruhr-uni-bochum.de/api/']
+export const geoserverWfsUrl: string = `http://corona.geomatik.ruhr-uni-bochum.de/geoserver/pg/wfs?service=WFS&version=1.1.0`;
 export const typeName: string[] = [
     'pg:hu_koeln',
 ];
@@ -62,10 +63,11 @@ export const usedIcons: string[] = [
     'fa fa-result',
     'fa fa-chevron-down',
     'fa fa-chevron-up',
-    'fa fa-lock',
+    'fa fa-refresh',
+    'fa fa-trash',
 ];
 
-export const geoserverFetchUrl = 'http://192.168.2.185:8000/handleGeoserver';
+export const geoserverFetchUrl = `http://corona.geomatik.ruhr-uni-bochum.de/api/handleGeoserver`;
 export const license = 'https://creativecommons.org/licenses/by-nc-nd/4.0/deed.de';
 
 
