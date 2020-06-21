@@ -26,7 +26,6 @@ export const view = new View({
     minZoom: minZoom,
     enableRotation: rotationStatus,
 })
-export const serverName: string[] = ['http://192.168.2.185:8080/', 'http://corona.geomatik.ruhr-uni-bochum.de/api/']
 export const geoserverWfsUrl: string = `http://corona.geomatik.ruhr-uni-bochum.de/geoserver/pg/wfs?service=WFS&version=1.1.0`;
 export const typeName: string[] = [
     'pg:hu_koeln',

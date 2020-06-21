@@ -12,7 +12,6 @@ import { activeToggleColor } from '../utils/MapStyles';
 import Button from './Button';
 import { wfsTransaction, usedIcons, updateParameters, geoserverFetchUrl } from '../utils/MapConfig';
 import VectorLayer from 'ol/layer/Vector';
-import { MapUtils } from '../utils/MapUtils';
 import Legend from './Legend';
 import Instructions from './Instructions';
 import Home from './Home';
@@ -41,8 +40,9 @@ const MapSidebar = (props: IMapSidebarProps): JSX.Element => {
 
     function handleToken(newToken: string | null) {
         setToken(newToken);
-      }
-  
+    }
+
+    const checkFeature = selectedFeature.getKeys()
 
     useEffect(() => {
         if (localStorage.getItem('VgiUserToken') === null) {
@@ -140,7 +140,7 @@ const MapSidebar = (props: IMapSidebarProps): JSX.Element => {
             >
                 <Tab
                     id='home'
-                    header='Beschreibung'
+                    header='Projektbeschreibung'
                     faIcon={usedIcons[0]}
                 >
                     <TabContent content={
@@ -156,6 +156,7 @@ const MapSidebar = (props: IMapSidebarProps): JSX.Element => {
                                 img={logo}
                                 link='https://www.geographie.ruhr-uni-bochum.de/forschung/geomatik/home-news/'
                             />
+                           <p className='imprinttext' onClick={() => setSelected('instructions')}>Impressum | Datenschutz</p>
                         </>
                     }
                     />
@@ -176,9 +177,12 @@ const MapSidebar = (props: IMapSidebarProps): JSX.Element => {
                                 isOnColor={activeToggleColor}
                                 handleToggle={onToggleChange}
                             />
-                            {
-                                JSON.stringify(selectedFeature.get('visited'))
+                            {checkFeature.length === 0 ?
+                                'Kein Gebäude gewählt.'
+                                :
+                                selectedFeature.get('visited') === false ? 'Gewähltes Gebäude nicht besucht.' : 'Gewähltes Gebäude besucht.'
                             }
+                        
                             {
                                 transactionResponse !== 'Updating' ?
                                     <Button
@@ -200,28 +204,13 @@ const MapSidebar = (props: IMapSidebarProps): JSX.Element => {
                 >
                     <TabContent content={
                         <>
-                            <Instructions 
+                            <Instructions
                                 token={token}
                                 handleToken={handleToken}
                             />
                         </>
                     }
                     />
-                </Tab>
-                <Tab
-                    id='tracking'
-                    header='Standort lokalisieren'
-                    faIcon={usedIcons[3]}
-                >
-                    <TabContent content={
-                        <>
-                            <Button
-                                buttonText='Standort lokalisieren'
-                                clickButton={() => MapUtils.createGeolocation(map)}
-                            />  
-                            <p>Die Standortbestimmung dient nur zu deiner Orientierung. Dein Standort wird im Rahmen der Datenerfassung nicht gespeichert.</p>                          
-                        </>
-                    } />
                 </Tab>
             </Sidebar>
         </>

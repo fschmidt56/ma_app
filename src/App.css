@@ -86,6 +86,11 @@ img {
     display: block;
 }
 
+.imprinttext {
+    font-size: 7.5pt;
+    cursor: pointer;
+}
+
 .layerlabel {
     padding-left: 35px;
     padding-bottom: 2px;
